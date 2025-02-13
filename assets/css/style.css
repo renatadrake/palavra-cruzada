@@ -1,132 +1,141 @@
-  /* =======================
+/* =======================
      ESTILOS GERAIS E LAYOUT
      ======================= */
-  body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
-      color: #333;
-  }
+.body-cruzadas {
+  margin: 0;
+  font-family: "robotoregular", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #333;
+}
 
+.container-jogo-cruzadas {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #00cd8b36;
+  border-radius: 20px;
+}
+.div-title {
+  padding: 1px;
+  background-color: white;
+  border-radius: 20px;
+  align-content: center;
+}
 
-  .container {
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-  }
+.col-litle{
+    align-content: center;
+}
 
-  h1 {
-      color: #005f9e;
-      margin-bottom: 10px;
-  }
+li {
+  list-style-image: url(../images/marcador.png);
+}
 
-  h2 {
-      color: #005f9e;
-      margin-top: 30px;
-  }
+.li-dicas {
+  padding: 6px;
+  border-bottom: 1px solid #00cd8b;
+}
 
-  /* ======================
-     ÁREA DA GRADE (CROSSWORD)
+.title-cruzada {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitulo-cruzada {
+  color: #333;
+  margin-top: 30px;
+}
+
+/* ======================
+     ÁREA DA GRADE 
      ====================== */
-  .crossword-container {
-      display: inline-block;
-      border: 2px solid #005f9e;
-      background-color: #dceeff;
-      padding: 10px;
-      margin-right: 30px;
-      margin-top: 20px;
-  }
+.crossword-container {
+  display: inline-block;
+  border: 2px solid #004a7a;
+  background-color: white;
+  padding: 10px;
+  margin-right: 30px;
+  margin-top: 20px;
+}
 
+.cw-row {
+  display: flex;
+}
 
-  .cw-row {
-      display: flex;
-  }
+.cw-cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #aeccee;
+  position: relative;
+  box-sizing: border-box;
+}
 
+.blocked {
+	background-color: #156349;
+}
 
-  .cw-cell {
-      width: 40px;
-      height: 40px;
-      border: 1px solid #aeccee;
-      position: relative;
-      box-sizing: border-box;
-  }
+.cw-clue-number {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  font-size: 10px;
+  color: #000;
+}
 
+.cw-cell input {
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background-color: transparent;
+}
 
-  .blocked {
-      background-color: #005f9e;
-  }
-
-
-  .cw-clue-number {
-      position: absolute;
-      top: 0;
-      left: 3px;
-      font-size: 10px;
-      color: #000;
-  }
-
-
-  .cw-cell input {
-      width: 100%;
-      height: 100%;
-      text-transform: uppercase;
-      text-align: center;
-      border: none;
-      outline: none;
-      font-size: 16px;
-      background-color: transparent;
-  }
-
-  /* =======================
+/* =======================
      ÁREA DE DICAS
      ======================= */
-  .clues-section {
-      display: inline-block;
-      vertical-align: top;
-      max-width: 350px;
-      text-align: left;
-  }
+.clues-section {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 350px;
+  text-align: left;
+}
 
-  .clues-section ul {
-      list-style-type: none;
-      padding: 0;
-  }
+.clues-section ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-  .clues-section li {
-      margin-bottom: 8px;
-  }
+.clues-section li {
+  margin-bottom: 8px;
+}
 
-  .clues-section strong {
-      color: #005f9e;
-  }
+.clues-section strong {
+  color: #005f9e;
+}
 
-  /* =======================
-     BOTÃO DE VERIFICAÇÃO
-     ======================= */
-  .check-button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #005f9e;
-      color: #fff;
-      text-transform: uppercase;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-  }
+#btnVerificar {
+  width: 100%;
+  padding: 2%;
+  background-color: #00cd8b;
+  color: #000;
+  border: 2px solid #333;
+  border-radius: 20px;
+  font-size: 23px;
+}
 
-  .check-button:hover {
-      background-color: #00457a;
-  }
+#btnVerificar:hover {
+  background-color: #dceeff;
+  color: #000;
+  border: 2px solid #00cd8b;
+}
 
-  /* =======================
-     SINALIZAÇÃO DE CORREÇÃO
-     ======================= */
-  .correct {
-      background-color: #b0f2b4 !important;
-  }
-
-  .incorrect {
-      background-color: #f7bfbf !important;
-  }
+input.correct {
+  background-color: #c8ffc8;
+}
+input.incorrect {
+  background-color: #ffc8c8;
+}

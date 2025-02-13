@@ -4,33 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Palavras Cruzadas</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
+    <div class="body-cruzadas">
+        <div class="container-jogo-cruzadas">
+            <div class="div-title">
+                <div class="row">
+                    <div class="col-2"><img src="assets/img/desafio.png" alt="" class="w-75"></div>
+                    <div class="col-8 col-title">
+                        <h1 class="title-cruzada">Palavras Cruzadas: Proventos e Descontos de Rescisão</h1>
 
-    <div class="container">
-        <h1>Palavras Cruzadas: Proventos e Descontos de Rescisão</h1>
-        <p>
-            Encontre os proventos e descontos inerentes ao processo de rescisão na palavra cruzada abaixo.
-            <br>Preencha as lacunas e clique em <strong>Verificar</strong> para conferir.
-        </p>
+                        <p class="p-intro-cruzada">
+                            Encontre os proventos e descontos inerentes ao processo de rescisão na palavra cruzada
+                            abaixo.
+                            <br>Preencha as lacunas e clique em <strong>Verificar</strong> para conferir.
+                        </p>
+                    </div>
+                </div>
+            </div>
+                <div class="crossword-container" id="crossword"></div>
+                <div class="clues-section">
+                    <h2 class="subtitulo-cruzada">Dicas</h2>
+                    <ul id="clues-list"></ul>
+                    <button id="btnVerificar">Verificar</button>
+                </div>
+            </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
 
-
-        <div class="crossword-container" id="crossword"></div>
-
-        <div class="clues-section">
-            <h2>Dicas</h2>
-            <ul id="clues-list"></ul>
-
-
-            <button class="check-button" id="check-button">Verificar</button>
-        </div>
-    </div>
-
-    <script src="assets/js/script.js"></script>
+        <script src="assets/js/script.js"></script>
 </body>
 
 </html>

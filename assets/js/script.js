@@ -1,116 +1,106 @@
-
-
 const palavras = [
   {
     numero: 1,
     orientacao: "across",
-    dica: "Saldo de Salário",
+    dica: "Valor pendente pelos dias trabalhados.",
     resposta: "SALDODESALARIO", // 14 letras
     linha: 5,
-    coluna: 1 
+    coluna: 1,
   },
   {
     numero: 2,
     orientacao: "down",
-    dica: "Aviso Prévio",
+    dica: "Período obrigatório antes da saída do empregado.",
     resposta: "AVISOPREVIO", // 11 letras
     linha: 2,
-    coluna: 1
+    coluna: 1,
   },
   {
     numero: 3,
-    orientacao: "across",
-    dica: "Férias",
+    orientacao: "down",
+    dica: "Descanso anual remunerado.",
     resposta: "FERIAS", // 6 letras
-    linha: 4,
-    coluna: 5
+    linha: 1,
+    coluna: 9,
   },
   {
     numero: 4,
     orientacao: "down",
-    dica: "Horas Extras",
+    dica: "Tempo de trabalho além da jornada habitual.",
     resposta: "HORASEXTRAS", // 11 letras
     linha: 4,
-    coluna: 14
+    coluna: 14,
   },
   {
     numero: 5,
     orientacao: "across",
-    dica: "Adicionais",
+    dica: "Verbas adicionais ao salário.",
     resposta: "ADICIONAIS", // 10 letras
-    linha: 14,
-    coluna: 2
-
+    linha: 9,
+    coluna: 3,
   },
   {
     numero: 6,
     orientacao: "across",
-    dica: "FGTS",
+    dica: "Fundo de garantia depositado pelo empregador.",
     resposta: "FGTS", // 4 letras
-    linha: 1,
-    coluna: 9
+    linha: 11,
+    coluna: 12,
   },
   {
     numero: 7,
     orientacao: "down",
-    dica: "INSS",
+    dica: "Contribuição social obrigatória para aposentadoria.",
     resposta: "INSS", // 4 letras
-    linha: 0,
-    coluna: 5
+    linha: 9,
+    coluna: 5,
   },
   {
     numero: 8,
     orientacao: "down",
-    dica: "IRRF",
+    dica: "Imposto retido na fonte.",
     resposta: "IRRF", // 4 letras
-    linha: 0,
-    coluna: 14
+    linha: 4,
+    coluna: 12,
   },
   {
     numero: 9,
     orientacao: "across",
-    dica: "Adiantamentos",
+    dica: "Pagamento antecipado do salário.",
     resposta: "ADIANTAMENTOS", // 13 letras
-    linha: 6,
-    coluna: 2
+    linha: 14,
+    coluna: 2,
   },
   {
     numero: 10,
     orientacao: "down",
-    dica: "Benefícios",
+    dica: "Auxílios extras além do salário.",
     resposta: "BENEFICIOS", // 10 letras
     linha: 2,
-    coluna: 8
+    coluna: 7,
   },
 ];
 
-// Tamanho do grid fixo (16x16)
 const totalLinhas = 16;
 const totalColunas = 16;
-
 
 let grid = [];
 for (let r = 0; r < totalLinhas; r++) {
   let row = [];
   for (let c = 0; c < totalColunas; c++) {
     row.push({
-      blocked: true,  // por padrão bloqueada
+      blocked: true,
       letter: "",
-      clueNumber: null
+      clueNumber: null,
     });
   }
   grid.push(row);
 }
 
-/* ================================
-   Posiciona as palavras no grid
-   ================================ */
 palavras.forEach((palavraObj) => {
   const { numero, orientacao, resposta, linha, coluna } = palavraObj;
-
   const upperWord = resposta.toUpperCase();
 
-  
   grid[linha][coluna].clueNumber = numero;
 
   for (let i = 0; i < upperWord.length; i++) {
@@ -128,16 +118,13 @@ palavras.forEach((palavraObj) => {
   }
 });
 
-/* =========================
-   RENDERIZA O TABULEIRO
-   ========================= */
 function renderCrossword() {
   const $crossword = $("#crossword");
   $crossword.empty();
 
   for (let r = 0; r < totalLinhas; r++) {
     const $rowDiv = $("<div>").addClass("cw-row");
-    
+
     for (let c = 0; c < totalColunas; c++) {
       const cellData = grid[r][c];
       const $cellDiv = $("<div>").addClass("cw-cell");
@@ -145,16 +132,19 @@ function renderCrossword() {
       if (cellData.blocked) {
         $cellDiv.addClass("blocked");
       } else {
-
         if (cellData.clueNumber) {
-          const $numSpan = $("<span>").addClass("cw-clue-number").text(cellData.clueNumber);
+          const $numSpan = $("<span>")
+            .addClass("cw-clue-number")
+            .text(cellData.clueNumber);
           $cellDiv.append($numSpan);
         }
 
         const $input = $("<input>")
           .attr("maxlength", "1")
+          .attr("id", `cell-${r}-${c}`)
           .data("row", r)
           .data("col", c);
+
         $cellDiv.append($input);
       }
 
@@ -164,70 +154,52 @@ function renderCrossword() {
   }
 }
 
-/* =========================
-   RENDERIZA A LISTA DE DICAS
-   ========================= */
-
 function renderClues() {
   const $cluesList = $("#clues-list");
   $cluesList.empty();
 
   palavras.forEach((p) => {
-    const orientTxt = (p.orientacao === "across") ? "Horizontal" : "Vertical";
-    const $li = $("<li>").html(
-      `<strong>${p.numero} ${orientTxt}:</strong> ${p.dica}`
-    );
+    const orientTxt = p.orientacao === "across" ? "Horizontal" : "Vertical";
+    const $li = $("<li>")
+      .addClass("li-dicas")
+      .html(`<strong>${p.numero}:</strong> ${p.dica}`);
     $cluesList.append($li);
   });
 }
 
-/* =============================
-   VERIFICA SE AS RESPOSTAS BATEM
-   ============================= */
-function checkAnswers() {
+function verificarRespostas() {
+  console.log("Iniciando verificação...");
 
-  $("input").removeClass("correct incorrect");
+  for (let r = 0; r < totalLinhas; r++) {
+    for (let c = 0; c < totalColunas; c++) {
+      const cellData = grid[r][c];
+      if (!cellData.blocked) {
+        const $input = $(`#cell-${r}-${c}`);
+        const letraCorreta = cellData.letter;
+        const letraDigitada = $input.val().toUpperCase();
 
-  palavras.forEach(({ orientacao, resposta, linha, coluna }) => {
-    const upperWord = resposta.toUpperCase();
-
-    for (let i = 0; i < upperWord.length; i++) {
-      let r = linha;
-      let c = coluna;
-      
-      if (orientacao === "across") {
-        c += i;
-      } else {
-        r += i;
-      }
-
-      const $input = $(`input[data-row='${r}'][data-col='${c}']`);
-
-      if ($input.length > 0) {
-        const userLetter = $input.val().toUpperCase().trim();
-        
-        if (userLetter !== "") {
-          if (userLetter === upperWord[i]) {
-            $input.addClass("correct");
-          } else {
-            $input.addClass("incorrect");
-          }
+        if (letraDigitada === letraCorreta) {
+          $input.removeClass("incorrect").addClass("correct");
+        } else {
+          $input.removeClass("correct").addClass("incorrect");
+          setTimeout(() => {
+            $input.removeClass("incorrect");
+          }, 3000);
         }
       }
     }
-  });
+  }
+
+  console.log("Verificação concluída!");
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
+  console.log("Documento carregado. Iniciando...");
   renderCrossword();
   renderClues();
 
-
-  $("body").on("input", "input", function(){
-    this.value = this.value.replace(/[^a-zA-Z]/g, "").toUpperCase();
-  });
-
-  $("#check-button").on("click", function(){
-    checkAnswers();
+  $("#btnVerificar").on("click", function () {
+    console.log("Botão Verificar clicado!");
+    verificarRespostas();
   });
 });
