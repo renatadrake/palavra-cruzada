@@ -161,7 +161,7 @@ function renderClues() {
   palavras.forEach((p) => {
     const orientTxt = p.orientacao === "across" ? "Horizontal" : "Vertical";
     const $li = $("<li>")
-      .addClass("li-dicas")
+      .addClass("li-dicas col")
       .html(`<strong>${p.numero}:</strong> ${p.dica}`);
     $cluesList.append($li);
   });

@@ -4,17 +4,15 @@
 .body-cruzadas {
   margin: 0;
   font-family: "robotoregular", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.42857143;
   color: #333;
 }
 
 .container-jogo-cruzadas {
   padding: 20px;
-  max-width: 1200px;
+  max-width: 700px;
   margin: 0 auto;
-  text-align: center;
-  background-color: #00cd8b36;
   border-radius: 20px;
 }
 .div-title {
@@ -100,7 +98,6 @@ li {
 .clues-section {
   display: inline-block;
   vertical-align: top;
-  max-width: 350px;
   text-align: left;
 }
 
@@ -110,7 +107,8 @@ li {
 }
 
 .clues-section li {
-  margin-bottom: 8px;
+  font-size: 23px;
+  margin: 13.9px;
 }
 
 .clues-section strong {
