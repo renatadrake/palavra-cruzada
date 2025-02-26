@@ -1,3 +1,24 @@
+$(document).ready(function () {
+  console.log("Documento carregado. Iniciando...");
+
+  criarEstruturaCruzadas();
+
+  renderCrossword();
+  renderClues();
+
+  $("#btnVerificar").on("click", function () {
+    console.log("Botão Verificar clicado!");
+    verificarRespostas();
+  });
+
+  let resizeTimer;
+  $(window).resize(function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderCrossword, 200);
+  });
+});
+
+
 const palavras = [
   {
     numero: 1,
@@ -122,12 +143,23 @@ function renderCrossword() {
   const $crossword = $("#crossword");
   $crossword.empty();
 
+  const tamanhoCelula = Math.min(
+    Math.floor($(window).width() / totalColunas * 0.8),
+    Math.floor($(window).height() / totalLinhas * 0.8),
+    60 // Limite máximo para manter legibilidade
+  );
+
   for (let r = 0; r < totalLinhas; r++) {
     const $rowDiv = $("<div>").addClass("cw-row");
 
     for (let c = 0; c < totalColunas; c++) {
       const cellData = grid[r][c];
-      const $cellDiv = $("<div>").addClass("cw-cell");
+      const $cellDiv = $("<div>")
+        .addClass("cw-cell")
+        .css({
+          width: `${tamanhoCelula}px`,
+          height: `${tamanhoCelula}px`,
+        });
 
       if (cellData.blocked) {
         $cellDiv.addClass("blocked");
@@ -154,14 +186,16 @@ function renderCrossword() {
   }
 }
 
+$(window).resize(renderCrossword);
+
+
 function renderClues() {
   const $cluesList = $("#clues-list");
   $cluesList.empty();
 
   palavras.forEach((p) => {
-    const orientTxt = p.orientacao === "across" ? "Horizontal" : "Vertical";
     const $li = $("<li>")
-      .addClass("li-dicas col")
+      .addClass("li-dicas col-md-6")
       .html(`<strong>${p.numero}:</strong> ${p.dica}`);
     $cluesList.append($li);
   });
@@ -193,13 +227,50 @@ function verificarRespostas() {
   console.log("Verificação concluída!");
 }
 
-$(document).ready(function () {
-  console.log("Documento carregado. Iniciando...");
-  renderCrossword();
-  renderClues();
 
-  $("#btnVerificar").on("click", function () {
-    console.log("Botão Verificar clicado!");
-    verificarRespostas();
-  });
-});
+
+
+
+function criarEstruturaCruzadas() {
+
+  const $bodyCruzadas = $("<div>").addClass("body-cruzadas");
+  const $containerJogo = $("<div>").addClass("container-jogo-cruzadas");
+
+  const $divTitle = $("<div>").addClass("div-title").append(
+    $("<div>").addClass("row").append(
+      $("<div>").addClass("col-title").append(
+        $("<h2>")
+          .addClass("title-cruzada")
+          .html("<strong>Palavras Cruzadas:</strong> Proventos e Descontos de Rescisão"),
+        $("<p>")
+          .addClass("p-intro-cruzada")
+          .html(
+            "Encontre os proventos e descontos inerentes ao processo de rescisão na palavra cruzada abaixo. Preencha as lacunas e clique em <strong>Verificar</strong> para conferir."
+          )
+      )
+    )
+  );
+
+  const $crosswordContainer = $("<div>").addClass("crossword-container").attr("id", "crossword");
+
+  const $cluesSection = $("<div>").addClass("clues-section").append(
+    $("<h2>").addClass("subtitulo-cruzada").text("Dicas"),
+    $("<ul>").addClass("row").attr("id", "clues-list"),
+    $("<button>").attr("id", "btnVerificar").text("Verificar")
+  );
+
+  $containerJogo.append($divTitle, $crosswordContainer, $cluesSection);
+  $bodyCruzadas.append($containerJogo);
+  $(".div-objeto-cruzadas").append($bodyCruzadas);
+}
+
+
+
+
+
+
+
+
+
+
+
