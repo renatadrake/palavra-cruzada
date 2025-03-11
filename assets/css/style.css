@@ -3,8 +3,6 @@
      ======================= */
 
 .container-jogo-cruzadas {
-  padding: 20px;
-  max-width: 95%;
   margin: 0 auto;
   border-radius: 20px;
 }
@@ -19,21 +17,24 @@
 
 /* =======================
      grade
-     ======================= */
+     ======================= 
+ */
 
 .crossword-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: white;
   max-width: 90vw;
   overflow-x: auto;
 }
 
 .cw-row {
   display: flex;
+}
+
+.crossword-inner {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
+
 
 .cw-cell {
   border: 1px solid #aeccee;
@@ -62,7 +63,6 @@
   border: none;
   outline: none;
   font-size: clamp(14px, 3vw, 18px);
-  /* Ajusta o tamanho da fonte */
   background-color: transparent;
 }
 

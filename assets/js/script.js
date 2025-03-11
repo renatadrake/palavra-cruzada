@@ -71,7 +71,7 @@ const palavras = [
   {
     numero: 7,
     orientacao: "down",
-    dica: "Contribuição social obrigatória para aposentadoria.",
+    dica: "Contribuição social para aposentadoria.",
     resposta: "INSS", // 4 letras
     linha: 9,
     coluna: 5,
@@ -144,9 +144,12 @@ function renderCrossword() {
   $crossword.empty();
 
   const tamanhoCelula = Math.min(
-    Math.floor($(window).width() / totalColunas * 0.8),
-    Math.floor($(window).height() / totalLinhas * 0.8),
-    60 // Limite máximo para manter legibilidade
+    54,
+    Math.max(
+      26,
+      Math.floor($(window).width() / totalColunas * 0.8),
+      Math.floor($(window).height() / totalLinhas * 0.8)
+    )
   );
 
   for (let r = 0; r < totalLinhas; r++) {
@@ -184,8 +187,9 @@ function renderCrossword() {
     }
     $crossword.append($rowDiv);
   }
-}
 
+  $(".crossword-container").scrollLeft(0);
+}
 $(window).resize(renderCrossword);
 
 
@@ -228,16 +232,13 @@ function verificarRespostas() {
 }
 
 
-
-
-
 function criarEstruturaCruzadas() {
 
   const $bodyCruzadas = $("<div>").addClass("body-cruzadas");
   const $containerJogo = $("<div>").addClass("container-jogo-cruzadas");
 
   const $divTitle = $("<div>").addClass("div-title").append(
-    $("<div>").addClass("row").append(
+    $("<div>").addClass("titulo-intro").append(
       $("<div>").addClass("col-title").append(
         $("<h2>")
           .addClass("title-cruzada")
@@ -255,7 +256,7 @@ function criarEstruturaCruzadas() {
 
   const $cluesSection = $("<div>").addClass("clues-section").append(
     $("<h2>").addClass("subtitulo-cruzada").text("Dicas"),
-    $("<ul>").addClass("row").attr("id", "clues-list"),
+    $("<ul>").addClass("row-dicas").attr("id", "clues-list"),
     $("<button>").attr("id", "btnVerificar").text("Verificar")
   );
 
